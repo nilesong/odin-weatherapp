@@ -1,6 +1,11 @@
 const city = document.querySelector('.city');
 const temp = document.querySelector('.temp');
 const weather = document.querySelector('.weather');
+const date = document.querySelector('.date');
+const feelsLike = document.querySelector('.feelsLike');
+const humidity = document.querySelector('.humidity');
+const rainChance = document.querySelector('.rainChance');
+const windSpeed = document.querySelector('.windSpeed');
 const errorField = document.querySelector('.error');
 
 async function getWeather() {
@@ -8,30 +13,22 @@ async function getWeather() {
     errorField.innerHTML = '';
     const cityRequest = prompt('City');
     // To remove current.json >> forecast.json already includes current data
-    const request1 = `http://api.weatherapi.com/v1/current.json?key=9e75879a84fd47acb31141945230407&q=${cityRequest}`;
-    const response1 = await fetch(request1, {
+    const request = `http://api.weatherapi.com/v1/forecast.json?key=9e75879a84fd47acb31141945230407&q=${cityRequest}&days=3`;
+    const response = await fetch(request, {
       method: 'GET',
       mode: 'cors',
     });
-    const weatherData1 = await response1.json();
-    const request2 = `http://api.weatherapi.com/v1/forecast.json?key=9e75879a84fd47acb31141945230407&q=${cityRequest}`;
-    const response2 = await fetch(request2, {
-      method: 'GET',
-      mode: 'cors',
-    });
-    const weatherData2 = await response2.json();
-    city.innerHTML = weatherData1.location.name;
-    temp.innerHTML = `Temperature is ${weatherData1.current.temp_c}`;
-    weather.innerHTML = `Weather is ${weatherData1.current.condition.text}`;
-    console.log(weatherData1);
-    console.log(weatherData2);
-    console.log(weatherData1.current.temp_c);
-    console.log(weatherData1.current.feelslike_c);
-    console.log(weatherData1.current.humidity);
-    console.log(weatherData1.current.wind_kph);
-    console.log(weatherData1.current.condition.text);
-    console.log(weatherData1.location.name);
-    console.log(weatherData1.location.localtime);
+    const weatherData = await response.json();
+
+    city.innerHTML = weatherData.location.name;
+    weather.innerHTML = weatherData.current.condition.text;
+    temp.innerHTML = `${weatherData.current.temp_c} deg C`;
+    date.innerHTML = weatherData.current.last_updated;
+    feelsLike.innerHTML = `${weatherData.current.feelslike_c} deg C`;
+    humidity.innerHTML = `${weatherData.current.humidity}%`;
+    rainChance.innerHTML = `${weatherData.forecast.forecastday[0].day.daily_chance_of_rain}%`;
+    windSpeed.innerHTML = `${weatherData.current.wind_kph}km/h`;
+    console.log(weatherData);
   } catch (error) {
     console.log(error);
     console.log('bad');
@@ -41,3 +38,14 @@ async function getWeather() {
 
 getWeather();
 console.log('hello this is still working up to this point');
+
+function changeweather() {
+  document.body.style.backgroundImage = 'url(weatherpic.jpg)';
+}
+
+// To Do
+// 1. dayForecast
+// 2. weekForecast
+// 3. Icons
+// 4. Font
+// 5. Search bar
