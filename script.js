@@ -91,7 +91,7 @@ async function getWeather() {
   try {
     errorField.innerHTML = '';
     const cityRequest = prompt('City');
-    const request = `http://api.weatherapi.com/v1/forecast.json?key=9e75879a84fd47acb31141945230407&q=${cityRequest}&days=3`;
+    const request = `https://api.weatherapi.com/v1/forecast.json?key=9e75879a84fd47acb31141945230407&q=${cityRequest}&days=3`;
     const response = await fetch(request, {
       method: 'GET',
       mode: 'cors',
