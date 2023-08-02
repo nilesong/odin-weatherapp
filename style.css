@@ -1,4 +1,41 @@
 body {
     background-image: url(weatherrainy.jpg);
-    color: red;
+    color: yellow;
 }
+
+/* CURRENT */
+.weatherInfo {
+    display: grid;
+    gap: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.icon {
+    grid-row: 1/3;
+}
+
+.icon>img {
+    width: 200px;
+    height: 200px;
+}
+
+.currentSub {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+/* DAY FORECAST */
+.dayForecast {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    overflow: scroll;
+}
+
+.hourIcon,
+.dayIcon {
+    width: 50px;
+    height: 50px;
+}
+
+/* WEEK FORECAST */
